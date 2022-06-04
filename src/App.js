@@ -1,10 +1,9 @@
 import { React, useState, useRef } from "react";
-
 import "./App.css";
 import MainMint from "./MainMint";
 import NavBar from "./NavBar";
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber";
-import { Flex, Link, Image, Box } from "@chakra-ui/react";
+import { Flex, Link, Image, Box, ChakraProvider } from "@chakra-ui/react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Stage } from "@react-three/drei";
 
@@ -32,33 +31,32 @@ function App() {
   // const gav = React.useRef();
 
   return (
-    <div className="overlay">
-      <div className="App">
-        <NavBar accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
-        <Flex height="70vh" width="100vw">
-          <Canvas>
-            <Stage shadows={false} contactShadow={false}>
-              <Gavroche />
-            </Stage>
-          </Canvas>
+    <div className="App">
+      <ChakraProvider></ChakraProvider>
+      <NavBar accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
+      <Flex height="70vh" width="100vw">
+        <Canvas>
+          <Stage shadows={false} contactShadow={false}>
+            <Gavroche intensity={1} />
+          </Stage>
+        </Canvas>
+      </Flex>
+      <MainMint accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
+      <Box position={"absolute"} bottom="5" right="10">
+        <Flex justify="space-around" width="15vw" align="center">
+          <Link href="https://discord.gg/skulltoons">
+            <Image className="social" src={discord}></Image>
+          </Link>
+
+          <Link href="https://twitter.com/SkulltoonsNFT">
+            <Image className="social" src={twitter}></Image>
+          </Link>
+
+          <Link href="https://instagram.com/skulltoonsnft">
+            <Image src={instagram} className="social"></Image>
+          </Link>
         </Flex>
-        <MainMint accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
-        <Box position={'absolute'} bottom="5" right="10">
-          <Flex justify="space-around" width="15vw" align="center">
-            <Link href="https://discord.gg/skulltoons">
-              <Image className="social" src={discord}></Image>
-            </Link>
-
-            <Link href="https://twitter.com/SkulltoonsNFT">
-              <Image className="social" src={twitter}></Image>
-            </Link>
-
-            <Link href="https://instagram.com/skulltoonsnft">
-              <Image src={instagram} className="social"></Image>
-            </Link>
-          </Flex>
-        </Box>
-      </div>
+      </Box>
     </div>
   );
 }
