@@ -3,13 +3,14 @@ import "./App.css";
 import MainMint from "./MainMint";
 import NavBar from "./NavBar";
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber";
-import { Flex, Link, Image, Box, ChakraProvider } from "@chakra-ui/react";
+import { Flex, Link, Image, Box, ChakraProvider, useMediaQuery } from "@chakra-ui/react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import { Stage } from "@react-three/drei";
 
 import discord from "./assets/discord.png";
 import twitter from "./assets/twitter.png";
 import instagram from "./assets/instagram.png";
+import opensea from "./assets/opensea.png";
 
 function Gavroche() {
   const { viewport } = useThree();
@@ -27,23 +28,28 @@ function Gavroche() {
 function App() {
   const [accounts, setAccounts] = useState([]);
   const [wlProof, setWlProof] = useState([]);
-  const [slProof, setSlProof] = useState([]);
-  // const gav = React.useRef();
+  const [slProof, setSlProof] = useState([]);   
+  const [isSmallScreen] = useMediaQuery("(max-width: 768px)");
 
+  window.onresize = () => {
+    // eslint-disable-next-line no-restricted-globals
+    location.reload();
+  }
+  
   return (
     <div className="App">
       <ChakraProvider></ChakraProvider>
       <NavBar accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
-      <Flex height="70vh" width="100vw">
+      <div style={{ width: "100vw", height: "60vh" }}>
         <Canvas>
           <Stage shadows={false} contactShadow={false}>
-            <Gavroche intensity={1} />
+            <Gavroche/>
           </Stage>
         </Canvas>
-      </Flex>
+      </div>
       <MainMint accounts={accounts} setAccounts={setAccounts} wlProof={wlProof} setWlProof={setWlProof} slProof={slProof} setSlProof={setSlProof} />
-      <Box position={"absolute"} bottom="5" right="10">
-        <Flex justify="space-around" width="15vw" align="center">
+      <Box position={"absolute"} bottom="10" right="10">
+        <Flex justify="space-around" width={isSmallScreen ? '50vw' : '30vw'} align="center">
           <Link href="https://discord.gg/skulltoons">
             <Image className="social" src={discord}></Image>
           </Link>
@@ -54,6 +60,9 @@ function App() {
 
           <Link href="https://instagram.com/skulltoonsnft">
             <Image src={instagram} className="social"></Image>
+          </Link>
+          <Link href="https://opensea.io/collection/skulltoonsgenesis">
+            <Image src={opensea} className="social"></Image>
           </Link>
         </Flex>
       </Box>

@@ -25,14 +25,14 @@ const NavBar = ({ accounts, setAccounts, wlProof, setWlProof, slProof, setSlProo
 
   return (
     <div className="navbar">
-      <Flex justify="flex-end" align="center" padding={"1rem"}>
+      <Flex justify="flex-end" align="center">
         {/* Connect */}
         {isConnected ? (
-          <Box margin="0 1rem" fontSize="30px">
+          <Box margin="0 2rem" fontSize="30px">
             Connected
           </Box>
         ) : (
-          <Button width="10rem" margin={"0.5rem"} _hover={{ background: "#dda0d8" }} height="2.5rem" fontSize="30px" className="btn-theme" onClick={connectAccount}>
+          <Button width="10rem" marginRight={'2rem'}  _hover={{ background: "#dda0d8" }} height="2.5rem" fontSize="30px" className="btn-theme" onClick={connectAccount}>
             Connect
           </Button>
         )}
